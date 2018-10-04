@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<?php include('header.phtml'); ?>
+<body>
+
+
+
+<!-- Load Facebook SDK for JavaScript -->
+<script>
+window.fbAsyncInit = function(){
+    FB.init({
+    <?php if ($_SERVER['SERVER_NAME']=='dhl.netguru.net.nz'): ?>
+        appId: '898372173669451', status: true, cookie: true, xfbml: true }); 
+    <?php endif; ?>
+    <?php if ($_SERVER['SERVER_NAME']=='www.dhldropyourflag.co.nz'): ?>
+        appId: '211565372754720', status: true, cookie: true, xfbml: true });     
+    <?php endif; ?>
+    };
+    (function(d, debug){var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if(d.getElementById(id)) {return;}
+        js = d.createElement('script'); js.id = id; 
+        js.async = true;js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+        ref.parentNode.insertBefore(js, ref);}(document, /*debug*/ false));
+    function postToFeed(title, desc, url, image){
+    var obj = {method: 'feed',link: url, picture: 'https://<?php echo $_SERVER['SERVER_NAME']; ?>/images/'+image,name: title,description: desc};
+    function callback(response){}
+    FB.ui(obj, callback);
+    }
+</script>
+
+
+
+
+  <!-- Your share button code -->
+
+<div id="map">
+    
+
+</div>
+
+<div class="cloudReveal cloudLeft"></div>
+<div class="cloudReveal cloudRight"></div>
+
+<div class="mobile-notice text-center">
+    
+    <div class="mark-wrap text-center">
+    
+        <p class="cap">Please visit this website on your desktop</p>
+    </div>
+
+</div>
+
+<div class="landing">
+    <div class="wrap">
+        <div class="row header-row">
+            <div class="col-6 text-left dhl-logo-top-left">
+            </div>
+            
+        </div>
+        
+            
+            
+                
+                <h1>Welcome </h1><br/>
+                 <button class="btn dhl-btn start-btn">Get Started</button> 
+            
+
+        
+    </div>    
+</div>
+
+
+
+
+
+
+<div class="main-layer hidden">
+
+    <div id="marker-confirm" class="marker-confirm">
+        <div class="markerYes hidden">Drop here?</div>
+    </div>
+
+    <div class="tagForm hidden">
+
+            <p class="large cap">Great! Fill up your details here.</p>
+            
+
+            <form method="post" action="/"  id="submitTagForm">
+                <div class="form-group">
+                    <label for="fname">First Name:</label>
+                    <input name="fname" id="fname" type="text" required />
+                </div>
+                <div class="form-group">
+                    <label for="fname">Last Name:</label>
+                    <input name="lname" id="lname" type="text" required />
+                </div>
+                <div class="form-group">
+                    <label for="fname">Phone:</label>
+                    <input name="phone" id="phone" type="text" required />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label> 
+                    <input name="email" id="email" type="email" required />
+                </div>
+                <input name="lat" id="lat" type="hidden" value="" />
+                <input name="lng" id="lng" type="hidden" value="" />
+
+              
+
+                <div class="form-group">
+               
+                    <button type="submit" class="btn btn-primary g-recaptcha" data-sitekey="6LcIl0sUAAAAAOgcx5_9n4EZNRzCcjH2ExBeRY39" data-callback="YourOnSubmitFn" data-badge="inline" id="submitTag">Submit your entry</button>
+                </div>
+            </form>
+    </div>
+
+    <div class="tagFormResult hidden">
+        <button class="closeTagFormResult"></button>
+        <div class="content"></div>
+    </div>
+
+
+    <div class="menu-col">
+        <div class="row">
+        <br/><br/><br/><br/>
+        </div>
+       
+
+        <div class="menu-btn btn how-to-play-btn">
+            
+            <p>How to play</p>
+        </div>
+
+       
+
+        <div class="console">
+        </div>
+
+       
+    </div>
+    
+    <div class="top-menu">
+        <div class="row">
+            <div class="col-6 text-center left">
+                <a href="#" class="beach-menu-btn">Find a place</a>
+                <div class="beach-menu-dropdown hidden">
+                    
+
+                    <div class="beach-list">
+
+                    <?php foreach($result as $beach){ 
+                                $name = $beach['name'];
+                                $latlng = explode(',',$beach['latlng']);
+                                $lat = $latlng[0];
+                                $lng = $latlng[1];
+                            ?>
+
+                            <a href="#" data-lat="<?php echo $lat; ?>" data-lng="<?php echo $lng; ?>" data-beach="<?php echo $name; ?>" class="beach-location"><?php echo $name; ?></a>                        
+                        <?php } ?>
+
+
+                        
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-6 text-center right">
+                
+            </div>
+        </div>
+
+    </div>
+
+   <div class="sls-layer hidden">
+        
+        <div class="row text-right">
+            <div class="close-sls-layer">
+                
+            </div>
+        </div>    
+        
+        <p>Content goes here</p>
+        
+        
+        
+   
+   </div>
+
+
+
+   <div class="overlay choose-beach-layer hidden">
+        <div class="layer-content">
+
+            <div class="select-beach-question">
+                <span class="title">Choose a place</span>
+
+                <div class="beach-dropdown">
+                    <button class="btn beach-dropdown-toggle">
+                        Select
+                    </button>
+
+                    
+
+                    <div class="beach-dropdown-menu ">
+                        <?php
+                            // $beaches = array();
+                            // $beaches[0]['name']
+                            
+                        ?>
+
+                        <?php foreach($result as $beach){ 
+                                $name = $beach['name'];
+                                $latlng = explode(',',$beach['latlng']);
+                                $lat = $latlng[0];
+                                $lng = $latlng[1];
+                            ?>
+
+                            <a href="#" data-lat="<?php echo $lat; ?>" data-lng="<?php echo $lng; ?>" data-beach="<?php echo $name; ?>" class="beach-select-item"><?php echo $name; ?></a>                        
+                        <?php } ?>
+
+
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+
+    <div class="overlay select-beach-answer hidden">
+                <span class="title beach-title"></span><br/><br/>
+                <button class="take-to-beach btn btn-yellow" lat="" lng="">Take me there</button>
+    </div>    
+
+    <div class="overlay clue-layer hidden">
+         <a href="#" class="btn  layer-close-btn" id=""></a>    
+        <div class="layer-content">
+            
+            <iframe width="100%" height="640" src="https://marco322.typeform.com/to/wJpNTB">
+                
+            </iframe>
+
+            
+
+        </div>
+    </div>
+
+    <div class="overlay how-to-play-layer hidden">
+        <a href="#" class="btn btn-dhl layer-close-btn" id=""></a>    
+        <div class="layer-content">
+                <?php include('how-to-play.phtml'); ?>
+                <center>
+                    <a href="#" class="btn btn-dhl got-it-btn">got it</a>
+                </center>
+
+        </div>
+    </div>
+
+    <div class="overlay rule-tnc-layer hidden">
+        <a href="#" class="btn layer-close-btn" id=""></a>    
+        <div class="layer-content">
+             <?php include('tnc.phtml'); ?>            
+        </div>
+        
+    </div>
+   
+    <div class="overlay viemo-layer hidden">
+        <a href="#" class="btn layer-close-btn  vimeo-close" id=""></a>    
+        <div class="layer-content  viemo-wrap">
+        <iframe src="https://player.vimeo.com/video/256164102" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        </div>
+    </div>
+
+
+    <div class="overlay remove-tag-layer hidden">
+    <a href="#" class="btn layer-close-btn" id=""></a> 
+        <div class="layer-content">
+            <span class="title">Are you sure you want to remove your flag from this spot?</span>
+
+            <br/>
+
+            <a href="#" class="btn btn-dhl remove-tag-btn" id="">Yes</a>
+        </div>
+        
+    </div>
+
+    <div class="overlay share-notice-layer hidden">
+        <a href="#" class="btn layer-close-btn" id=""></a> 
+        <div class="layer-content">
+            <p class="title red">
+                You have already entered your flag! To get a second flag, simply share this website to Facebook and we’ll give you another entry.
+            </p>
+
+            <br/><br/>
+                <center>
+           
+
+            <a data-href="https://<?php echo $_SERVER['SERVER_NAME']; ?>" data-image="dhl-win.png" data-title="DHL - Drop your Flag to Win" data-desc="We have buried $10,000 CASH SOMEWHERE on a Patrolled surf life saving beach in new Zealand!" id="shareBtn" class="btnShare">
+                <img src="images/share.png" />
+            </a>
+           
+            
+        </div>
+        
+    </div>
+
+    <div class="overlay too-much-layer hidden">
+        <div class="layer-content">
+         <p class="title red">Sorry, you have added the maximum amount of flags! Thanks for entering and good luck.</p>
+
+            
+            
+        </div>
+
+        <a href="#" class="btn btn-dhl layer-close-btn" id=""></a>
+    </div>
+
+
+
+
+    <div class="share-and-zoom container">
+        <div class="row">
+            
+            <div class="col-7">
+                <div class="zoom-in" id="zoom-in"></div>
+                <div class="zoom-out" id="zoom-out"></div>
+            </div>    
+        </div>                
+    </div>
+</div>
+
+
+
+<?php include('footer.phtml'); ?>
+</body>
+
+
+
+
+</html>

@@ -1,0 +1,43 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"/></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+
+    </script>
+    
+<!-- <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPHQsn2mh0Zzn-GjKV91tnhy4cZmoBImg&sensor=false&callback=initialize">
+    </script> -->
+
+<script 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPHQsn2mh0Zzn-GjKV91tnhy4cZmoBImg&v=3.31&libraries=geometry,drawing,places">
+         
+</script>
+
+
+
+<script src="js/markerwithlabel.js"></script>
+
+
+<script src="https://connect.facebook.net/en_US/all.js" async=""></script>
+
+
+<script>
+document.getElementById('shareBtn').onclick = function() {
+    console.log('click share');
+  FB.ui({
+    method: 'share',
+    display: 'popup',
+    href: 'https://<?php echo $_SERVER['SERVER_NAME']; ?>',
+  }, function(response){});
+}
+</script>
+
+
+<script src="js/script.js"></script>
+
+
+
+<!-- <script src="js/gmaps.js"></script> -->
